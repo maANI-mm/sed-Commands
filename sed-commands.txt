@@ -1,4 +1,4 @@
-FILE SPACING:
+#FILE SPACING:
 
  # double space a file
  sed G
@@ -22,7 +22,7 @@ FILE SPACING:
  # insert a blank line above and below every line which matches "regex"
  sed '/regex/{x;p;x;G;}'
 
-NUMBERING:
+#NUMBERING:
 
  # number each line of a file (simple left alignment). Using a tab (see
  # note on '\t' at end of file) instead of space will preserve margins.
@@ -37,7 +37,7 @@ NUMBERING:
  # count lines (emulates "wc -l")
  sed -n '$='
 
-TEXT CONVERSION AND SUBSTITUTION:
+#TEXT CONVERSION AND SUBSTITUTION:
 
  # IN UNIX ENVIRONMENT: convert DOS newlines (CR/LF) to Unix format.
  sed 's/.$//'               # assumes that all lines end with CR/LF
@@ -133,7 +133,7 @@ TEXT CONVERSION AND SUBSTITUTION:
  gsed '0~5G'                  # GNU sed only
  sed 'n;n;n;n;G;'             # other seds
 
-SELECTIVE PRINTING OF CERTAIN LINES:
+#SELECTIVE PRINTING OF CERTAIN LINES:
 
  # print first 10 lines of file (emulates behavior of "head")
  sed 10q
@@ -223,7 +223,7 @@ SELECTIVE PRINTING OF CERTAIN LINES:
  # print section of file between two regular expressions (inclusive)
  sed -n '/Iowa/,/Montana/p'             # case sensitive
 
-SELECTIVE DELETION OF CERTAIN LINES:
+#SELECTIVE DELETION OF CERTAIN LINES:
 
  # print all of file EXCEPT section between 2 regular expressions
  sed '/Iowa/,/Montana/d'
@@ -281,7 +281,7 @@ SELECTIVE DELETION OF CERTAIN LINES:
  # delete the last line of each paragraph
  sed -n '/^$/{p;h;};/./{x;/./p;}'
 
-SPECIAL APPLICATIONS:
+#SPECIAL APPLICATIONS:
 
  # remove nroff overstrikes (char, backspace) from man pages. The 'echo'
  # command may need an -e switch if you use Unix System V or bash shell.
@@ -360,7 +360,7 @@ ed"), but man pages are notoriously difficult. They are not written to
 teach sed use or regexps to first-time users, but as a reference text
 for those already acquainted with these tools.
 
-QUOTING SYNTAX: The preceding examples use single quotes ('...')
+#QUOTING SYNTAX: The preceding examples use single quotes ('...')
 instead of double quotes ("...") to enclose editing commands, since
 sed is typically used on a Unix platform. Single quotes prevent the
 Unix shell from intrepreting the dollar sign ($) and backquotes
@@ -378,7 +378,7 @@ so when typing these scripts from the command line, you should press
 the TAB key instead. '\t' is supported as a regular expression
 metacharacter in awk, perl, and HHsed, sedmod, and GNU sed v3.02.80.
 
-VERSIONS OF SED: Versions of sed do differ, and some slight syntax
+#VERSIONS OF SED: Versions of sed do differ, and some slight syntax
 variation is to be expected. In particular, most do not support the
 use of labels (:name) or branch instructions (b,t) within editing
 commands, except at the end of those commands. We have used the syntax
@@ -394,11 +394,11 @@ it is heartening to know that GNU sed will let you reduce it to:
    sed '/AAA\|BBB\|CCC/b;d'
 
 In addition, remember that while many versions of sed accept a command
-like "/one/ s/RE1/RE2/", some do NOT allow "/one/! s/RE1/RE2/", which
+#like "/one/ s/RE1/RE2/", some do NOT allow "/one/! s/RE1/RE2/", which
 contains space before the 's'. Omit the space when typing the command.
 
-OPTIMIZING FOR SPEED: If execution speed needs to be increased (due to
-large input files or slow processors or hard disks), substitution will
+#OPTIMIZING FOR SPEED: If execution speed needs to be increased (due to
+#large input files or slow processors or hard disks), substitution will
 be executed more quickly if the "find" expression is specified before
 giving the "s/.../.../" instruction. Thus:
 
@@ -406,28 +406,19 @@ giving the "s/.../.../" instruction. Thus:
    sed '/foo/ s/foo/bar/g' filename   # executes more quickly
    sed '/foo/ s//bar/g' filename      # shorthand sed syntax
 
-On line selection or deletion in which you only need to output lines
-from the first part of the file, a "quit" command (q) in the script
-will drastically reduce processing time for large files. Thus:
+#On line selection or deletion in which you only need to output lines
+#from the first part of the file, a "quit" command (q) in the script
+#will drastically reduce processing time for large files. Thus:
 
    sed -n '45,50p' filename           # print line nos. 45-50 of a file
    sed -n '51q;45,50p' filename       # same, but executes much faster
 
-======================================================================
--------------------------------------------------------------------------
-USEFUL ONE-LINE SCRIPTS FOR SED (Unix stream editor)        Dec. 29, 2005
-Compiled by Eric Pement - pemente[at]northpark[dot]edu        version 5.5
+#======================================================================
+#-------------------------------------------------------------------------
+#USEFUL ONE-LINE SCRIPTS FOR SED (Unix stream editor)        Dec. 29, 2005
+#Compiled by Eric Pement - pemente[at]northpark[dot]edu        version 5.5
 
-Latest version of this file (in English) is usually at:
-   http://sed.sourceforge.net/sed1line.txt
-   http://www.pement.org/sed/sed1line.txt
+#Latest version of this file (in English) is usually at:
+  # http://sed.sourceforge.net/sed1line.txt
+   #http://www.pement.org/sed/sed1line.txt
 
-This file will also available in other languages:
-  Chinese     - http://sed.sourceforge.net/sed1line_zh-CN.html
-  Czech       - http://sed.sourceforge.net/sed1line_cz.html
-  Dutch       - http://sed.sourceforge.net/sed1line_nl.html
-  French      - http://sed.sourceforge.net/sed1line_fr.html
-  German      - http://sed.sourceforge.net/sed1line_de.html
-  Italian     - (pending)
-  Portuguese  - http://sed.sourceforge.net/sed1line_pt-BR.html
-  Spanish     - (pending)
